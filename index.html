@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student QR Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #6a0dad;
+    }
+    input[type="text"], input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    input[type="submit"] {
+      background-color: #6a0dad;
+      color: white;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #5b0ca1;
+    }
+    #result {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    #qrcode {
+      width: 200px;
+      height: 200px;
+    }
+    #studentImage {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Student QR Code Generator</h1>
+    <form id="studentForm">
+      <input type="text" id="fullName" placeholder="Full Name" required />
+      <input type="text" id="studentId" placeholder="Student ID" required />
+      <input type="submit" value="Generate QR Code" />
+    </form>
+
+    <div id="result" style="display:none;">
+      <div id="qrcode"></div>
+      <img id="studentImage" src="" alt="Student Photo" />
+    </div>
+  </div>
+
+  <!-- jQuery and jQuery.qrcode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+  <script>
+    $('#studentForm').on('submit', function(event) {
+      event.preventDefault();
+
+      const fullName = $('#fullName').val().trim().toLowerCase();
+      const studentId = $('#studentId').val().trim();
+
+      if (!fullName || !studentId) {
+        alert('Please enter both Full Name and Student ID.');
+        return;
+      }
+
+      // Clear previous results
+      $('#qrcode').empty();
+      $('#studentImage').attr('src', '');
+      $('#result').hide();
+
+      // AJAX call to Node.js check_student endpoint
+      $.ajax({
+        url: 'http://localhost:3000/check_student', // Update if deployed elsewhere
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ studentId: studentId, fullname: fullName }),
+        dataType: 'json',
+        success: function(response) {
+          if (response.status === 'success' && response.exists) {
+            // Generate QR code JSON
+            const currentDate = new Date();
+            const date = currentDate.toISOString().split('T')[0];
+            const time = currentDate.toTimeString().split(' ')[0].slice(0,5);
+
+            const studentInfo = {
+              studentId: studentId,
+              fullname: fullName,
+              Date: date,
+              time: time
+            };
+            const jsonString = JSON.stringify(studentInfo);
+
+            // Generate QR code
+            $('#qrcode').qrcode({
+              text: jsonString,
+              width: 200,
+              height: 200
+            });
+
+            // Show student image
+            // Assuming Node.js serves images from /uploads path
+            $('#studentImage').attr('src', 'http://localhost:3000/' + response.image_path);
+            $('#result').show();
+
+          } else {
+            alert(response.message || 'Student not found.');
+          }
+        },
+        error: function() {
+          alert('Error checking student in database.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
