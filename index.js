@@ -4,21 +4,21 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const fs = require('fs-extra');
 const bodyParser = require('body-parser');
-require('dotenv').config();
+
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MySQL configuration
-// const dbConfig = {
-//   host: 'mysql.railway.internal',
-//   user: 'root',
-//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-//   database: 'railway',
-//   port: 3306,
-// };
-const dbConfig = process.env.MYSQL_URL;
+const dbConfig = {
+  host: 'centerbeam.proxy.rlwy.net',
+  user: 'root',
+  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+  database: 'railway',
+  port: 13662,
+};
+
 // Middleware setup
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -35,11 +35,11 @@ app.get('/', (req, res) => {
 });
 
 /* ===========================
-  API Endpoints
+   API Endpoints
    =========================== */
 
 // 1. Upload Student
-app.all('/upload_student', async (req, res) => {
+app.post('/upload_student', async (req, res) => {
   try {
     const data = req.body;
     if (!data) return res.status(400).json({ status: 'error', message: 'Invalid JSON input' });
@@ -111,7 +111,7 @@ app.all('/upload_student', async (req, res) => {
 });
 
 // 2. Check Student
-app.all('/check_student', async (req, res) => {
+app.post('/check_student', async (req, res) => {
   try {
     const { studentId, fullname } = req.body;
     if (!studentId || !fullname) {
@@ -157,7 +157,7 @@ app.all('/check_student', async (req, res) => {
 });
 
 // 3. Get Attendance
-app.all('/get_attendance', async (req, res) => {
+app.get('/get_attendance', async (req, res) => {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const [rows] = await conn.execute(
@@ -226,7 +226,7 @@ app.all('/get_attendance_date', async (req, res) => {
 });
 
 // 5. Get Student Info
-app.all('/get_student_info', async (req, res) => {
+app.post('/get_student_info', async (req, res) => {
   try {
     const { student_id, student_name } = req.body;
     if (!student_id || !student_name) {
@@ -270,7 +270,7 @@ app.all('/get_student_info', async (req, res) => {
 });
 
 // 6. Mark Attendance
-app.all('/mark_attendance', async (req, res) => {
+app.post('/mark_attendance', async (req, res) => {
   try {
     const { qr_data } = req.body;
     if (!qr_data) return res.status(400).json({ status: 'error', message: 'Missing qr_data' });

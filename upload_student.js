@@ -2,29 +2,23 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const fs = require('fs-extra');
 const path = require('path');
-const cors = require('cors');
-require('dotenv').config();
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON body and enable CORS
-app.use(cors({
-  origin: '*',
-  methods: ['POST', 'OPTIONS', 'GET'],
-  allowedHeaders: ['Content-Type'],
-}));
+// Middleware to parse JSON body
 app.use(express.json({ limit: '10mb' })); // Increase limit if images are large
 
 // MySQL connection config - replace with your actual credentials or use environment variables
-// const dbConfig = {
-//   host: 'mysql.railway.internal',
-//   user: 'root',
-//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-//   database: 'railway',
-//   port: 3306,
-// };
-const dbConfig = process.env.MYSQL_URL;
+const dbConfig = {
+  host: 'centerbeam.proxy.rlwy.net',
+  user: 'root',
+  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+  database: 'railway',
+  port: 13662,
+};
+
 app.post('/upload_student', async (req, res) => {
   try {
     const data = req.body;

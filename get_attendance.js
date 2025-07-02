@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-require('dotenv').config();
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,19 +9,19 @@ const PORT = process.env.PORT || 3000;
 // Enable CORS for all origins and allow GET, OPTIONS methods
 app.use(cors({
   origin: '*',
-  methods: ['POST', 'GET', 'OPTIONS'],
+  methods: ['GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
 
 // MySQL connection config - replace with your actual credentials or use env variables
-// const dbConfig = {
-//   host: 'mysql.railway.internal',
-//   user: 'root',
-//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-//   database: 'railway',
-//   port: 3306,
-// };
-const dbConfig = process.env.MYSQL_URL;
+const dbConfig = {
+  host: 'centerbeam.proxy.rlwy.net',
+  user: 'root',
+  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+  database: 'railway',
+  port: 13662,
+};
+
 // Handle preflight OPTIONS request
 app.options('/get_attendance', (req, res) => {
   res.sendStatus(200);

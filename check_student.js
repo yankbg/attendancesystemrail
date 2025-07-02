@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-require('dotenv').config();
+
 
 
 const app = express();
@@ -10,21 +10,21 @@ const PORT = process.env.PORT || 3000;
 // Middleware to enable CORS and parse JSON and URL-encoded bodies
 app.use(cors({
   origin: '*',
-  methods: ['POST', 'GET', 'OPTIONS'],
+  methods: ['POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MySQL connection config - replace with your actual credentials or use env variables
-// const dbConfig = {
-//   host: 'mysql.railway.internal',
-//   user: 'root',
-//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-//   database: 'railway',
-//   port: 3306,
-// };
-const dbConfig = process.env.MYSQL_URL;
+const dbConfig = {
+  host: 'centerbeam.proxy.rlwy.net',
+  user: 'root',
+  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+  database: 'railway',
+  port: 13662,
+};
+
 // Handle preflight OPTIONS request (CORS)
 app.options('/check_student', (req, res) => {
   res.sendStatus(200);
