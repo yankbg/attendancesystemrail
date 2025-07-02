@@ -95,7 +95,7 @@
 
       // AJAX call to Node.js check_student endpoint
       $.ajax({
-        url: 'attendancesystemrail-production.up.railway.app/check_student', // Update if deployed elsewhere
+        url: 'https://attendancesystemrail-production.up.railway.app/check_student', // Update if deployed elsewhere
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ studentId: studentId, fullname: fullName }),
