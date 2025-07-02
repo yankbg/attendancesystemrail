@@ -270,7 +270,7 @@ app.post('/get_student_info', async (req, res) => {
 });
 
 // 6. Mark Attendance
-app.post('/mark_attendance', async (req, res) => {
+app.all('/mark_attendance', async (req, res) => {
   try {
     const { qr_data } = req.body;
     if (!qr_data) return res.status(400).json({ status: 'error', message: 'Missing qr_data' });
