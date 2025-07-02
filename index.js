@@ -12,11 +12,11 @@ const PORT = process.env.PORT || 3000;
 
 // MySQL configuration
 const dbConfig = {
-  host: 'centerbeam.proxy.rlwy.net',
+  host: 'mysql.railway.internal',
   user: 'root',
   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
   database: 'railway',
-  port: 13662,
+  port: 3306,
 };
 
 // Middleware setup

@@ -17,11 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // MySQL connection config - replace with your credentials or environment variables
 const dbConfig = {
-  host: 'centerbeam.proxy.rlwy.net',
+  host: 'mysql.railway.internal',
   user: 'root',
   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
   database: 'railway',
-  port: 13662,
+  port: 3306,
 };
 
 // Handle preflight OPTIONS request

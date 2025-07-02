@@ -12,11 +12,11 @@ app.use(express.json({ limit: '10mb' })); // Increase limit if images are large
 
 // MySQL connection config - replace with your actual credentials or use environment variables
 const dbConfig = {
-  host: 'centerbeam.proxy.rlwy.net',
+  host: 'mysql.railway.internal',
   user: 'root',
   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
   database: 'railway',
-  port: 13662,
+  port: 3306,
 };
 
 app.post('/upload_student', async (req, res) => {

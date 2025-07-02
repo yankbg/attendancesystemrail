@@ -15,11 +15,11 @@ app.use(cors({
 
 // MySQL connection config - replace with your actual credentials or use env variables
 const dbConfig = {
-  host: 'centerbeam.proxy.rlwy.net',
+  host: 'mysql.railway.internal',
   user: 'root',
   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
   database: 'railway',
-  port: 13662,
+  port: 3306,
 };
 
 // Handle preflight OPTIONS request
