@@ -2,12 +2,18 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const fs = require('fs-extra');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON body
+// Middleware to parse JSON body and enable CORS
+app.use(cors({
+  origin: '*',
+  methods: ['POST', 'OPTIONS', 'GET'],
+  allowedHeaders: ['Content-Type'],
+}));
 app.use(express.json({ limit: '10mb' })); // Increase limit if images are large
 
 // MySQL connection config - replace with your actual credentials or use environment variables

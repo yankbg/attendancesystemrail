@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Enable CORS for all origins and allow GET, OPTIONS methods
 app.use(cors({
   origin: '*',
-  methods: ['GET', 'OPTIONS'],
+  methods: ['POST', 'GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
 

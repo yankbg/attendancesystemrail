@@ -35,11 +35,11 @@ app.get('/', (req, res) => {
 });
 
 /* ===========================
-   API Endpoints
+  API Endpoints
    =========================== */
 
 // 1. Upload Student
-app.post('/upload_student', async (req, res) => {
+app.all('/upload_student', async (req, res) => {
   try {
     const data = req.body;
     if (!data) return res.status(400).json({ status: 'error', message: 'Invalid JSON input' });
@@ -111,7 +111,7 @@ app.post('/upload_student', async (req, res) => {
 });
 
 // 2. Check Student
-app.post('/check_student', async (req, res) => {
+app.all('/check_student', async (req, res) => {
   try {
     const { studentId, fullname } = req.body;
     if (!studentId || !fullname) {
@@ -157,7 +157,7 @@ app.post('/check_student', async (req, res) => {
 });
 
 // 3. Get Attendance
-app.get('/get_attendance', async (req, res) => {
+app.all('/get_attendance', async (req, res) => {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const [rows] = await conn.execute(
@@ -226,7 +226,7 @@ app.all('/get_attendance_date', async (req, res) => {
 });
 
 // 5. Get Student Info
-app.post('/get_student_info', async (req, res) => {
+app.all('/get_student_info', async (req, res) => {
   try {
     const { student_id, student_name } = req.body;
     if (!student_id || !student_name) {
