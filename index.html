@@ -95,7 +95,7 @@
 
       // AJAX call to Node.js check_student endpoint
       $.ajax({
-        url: 'http://www.yankbg.42web.io/attendancesystem2/check_student.php', // Update if deployed elsewhere
+        url: 'https://attendancesystemrail-production.up.railway.app/check_student',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ studentId: studentId, fullname: fullName }),
@@ -124,7 +124,7 @@
 
             // Show student image
             // Assuming Node.js serves images from /uploads path
-            $('#studentImage').attr('src', 'http://localhost:3000/' + response.image_path);
+            $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app/' + response.image_path);
             $('#result').show();
 
           } else {
