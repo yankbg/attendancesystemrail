@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const fs = require('fs-extra');
 const path = require('path');
-
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,14 +11,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: '10mb' })); // Increase limit if images are large
 
 // MySQL connection config - replace with your actual credentials or use environment variables
-const dbConfig = {
-  host: 'mysql.railway.internal',
-  user: 'root',
-  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-  database: 'railway',
-  port: 3306,
-};
-
+// const dbConfig = {
+//   host: 'mysql.railway.internal',
+//   user: 'root',
+//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+//   database: 'railway',
+//   port: 3306,
+// };
+const dbConfig = process.env.MYSQL_URL;
 app.post('/upload_student', async (req, res) => {
   try {
     const data = req.body;

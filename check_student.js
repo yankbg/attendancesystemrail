@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-
+require('dotenv').config();
 
 
 const app = express();
@@ -17,14 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MySQL connection config - replace with your actual credentials or use env variables
-const dbConfig = {
-  host: 'mysql.railway.internal',
-  user: 'root',
-  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-  database: 'railway',
-  port: 3306,
-};
-
+// const dbConfig = {
+//   host: 'mysql.railway.internal',
+//   user: 'root',
+//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+//   database: 'railway',
+//   port: 3306,
+// };
+const dbConfig = process.env.MYSQL_URL;
 // Handle preflight OPTIONS request (CORS)
 app.options('/check_student', (req, res) => {
   res.sendStatus(200);

@@ -4,21 +4,21 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const fs = require('fs-extra');
 const bodyParser = require('body-parser');
-
+require('dotenv').config();
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MySQL configuration
-const dbConfig = {
-  host: 'mysql.railway.internal',
-  user: 'root',
-  password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
-  database: 'railway',
-  port: 3306,
-};
-
+// const dbConfig = {
+//   host: 'mysql.railway.internal',
+//   user: 'root',
+//   password: 'hTqNMZuZUBrEaiRcvlnzDIWBFynwbvRL',
+//   database: 'railway',
+//   port: 3306,
+// };
+const dbConfig = process.env.MYSQL_URL;
 // Middleware setup
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
