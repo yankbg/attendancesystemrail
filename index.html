@@ -124,7 +124,7 @@
 
             // Show student image
             // Assuming Node.js serves images from /uploads path
-            $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app/check_student' + response.image_path);
+            $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app/' + response.image_path);
             $('#result').show();
 
           } else {
