@@ -126,6 +126,8 @@
             // Assuming Node.js serves images from /uploads path
             $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app' + response.image_path);
             $('#result').show();
+            console.log("Image Path:", response.image_path);
+            console.log("Full URL:", "https://attendancesystemrail-production.up.railway.app" + response.image_path);
 
           } else {
             alert(response.message || 'Student not found.');
