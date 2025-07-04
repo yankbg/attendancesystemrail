@@ -113,7 +113,7 @@ app.post('/mark_attendance', async (req, res) => {
         fullname: studentName,
         Date: date,
         time,
-        marked_at: new Date().toISOString().slice(0, 19).replace('T', ' '), // Format: YYYY-MM-DD HH:mm:ss
+        marked_at: new Date().toISOString().slice(0, 10), // Format: YYYY-MM-DD
       },
     });
   } catch (error) {
