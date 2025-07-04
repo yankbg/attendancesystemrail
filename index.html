@@ -23,7 +23,7 @@
       text-align: center;
       color: #6a0dad;
     }
-    input[type="text"], input[type="submit"] {
+    input[type="text"], input[type="submit"],input[type="number"] {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -124,7 +124,7 @@
 
             // Show student image
             // Assuming Node.js serves images from /uploads path
-            $('#studentImage').attr('src', response.image_path);
+            $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app' + response.image_path);
             $('#result').show();
 
           } else {
