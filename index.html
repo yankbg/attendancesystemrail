@@ -68,7 +68,6 @@
 
     <div id="result" style="display:none;">
       <div id="qrcode"></div>
-      <img id="studentImage" src="" alt="Student Photo" />
     </div>
   </div>
 
@@ -122,9 +121,6 @@
               height: 200
             });
 
-            // Show student image
-            // Assuming Node.js serves images from /uploads path
-        $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app' + response.image_path);
           $('#result').show();
 
             console.log("Image Path:", response.image_path);
