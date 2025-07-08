@@ -124,7 +124,8 @@
 
             // Show student image
             // Assuming Node.js serves images from /uploads path
-           $('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app' + response.image_path);
+          let imagePath = response.image_path.startsWith('/') ? response.image_path : '/' + response.image_path;
+$('#studentImage').attr('src', 'https://attendancesystemrail-production.up.railway.app' + imagePath);
             console.log("Image Path:", response.image_path);
             console.log("Full URL:", "https://attendancesystemrail-production.up.railway.app" + response.image_path);
 
